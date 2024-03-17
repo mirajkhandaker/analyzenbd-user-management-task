@@ -1,0 +1,33 @@
+body {
+    height: 100vh;
+}
+
+.nav-item .nav-link{
+    padding: 3px 10px;
+}
+
+.nav-item .active{
+    background-color: rgb(255,255,255,0.2);
+}
+
+.login .card {
+    width: 25%;
+}
+
+.required::after {
+    content: "*";
+    color: red;
+    margin-left: 2px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .login .card {
+        width: 30%;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .login .card {
+        width: 75%;
+    }
+}
