@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
+use App\Interfaces\UserInterface;
 use App\Models\User;
 
-class UserService
+class UserService implements UserInterface
 {
     private $fileService;
 

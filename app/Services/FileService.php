@@ -2,12 +2,13 @@
 
 namespace App\Services;
 
+use App\Interfaces\FileInterface;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\File;
 
-class FileService
+class FileService implements FileInterface
 {
     public function uploadProfilePic($file)
     {
