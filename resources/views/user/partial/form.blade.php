@@ -22,7 +22,7 @@
                 <span class="text-muted small">(Select image if you want to change it)</span>
             @endif
         </label>
-        <input type="file" class="form-control form-control-sm" id="profile_pic" name="profile_pic">
+        <input type="file" class="form-control form-control-sm" id="profile_pic" name="profile_pic" accept=".jpg, .jpeg, .png">
         @error('profile_pic') <span class="text-danger">{{$message}}</span>@enderror
     </div>
     <div class="col-md-6 mb-2">

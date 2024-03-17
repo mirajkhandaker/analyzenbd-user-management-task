@@ -3,10 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Events\UserSaved;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Route;
 
 class User extends Authenticatable
 {
@@ -59,17 +61,13 @@ class User extends Authenticatable
         parent::boot();
 
         static::saved(function ($user) {
-            $addressesData = request()->get('address', []);
+            $routeName = Route::currentRouteName();
 
-            $user->addresses()->delete();
-            $formattedAddresses = [];
+            if ($routeName == 'users.store' || $routeName == 'users.update') {
+                $addressesData = request()->get('address', []);
+                UserSaved::dispatch($user, $addressesData);
+            }
 
-            foreach ($addressesData as $address) {
-                $formattedAddresses[] = ['address' => $address];
-            }
-            if (!empty($formattedAddresses)) {
-                $user->addresses()->createMany($formattedAddresses);
-            }
         });
     }
 }

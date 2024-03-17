@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Interfaces\FileInterface;
+use App\Interfaces\UserInterface;
+use App\Services\FileService;
+use App\Services\UserService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -15,7 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(UserInterface::class, UserService::class);
+        $this->app->bind(FileInterface::class, FileService::class);
     }
 
     /**
