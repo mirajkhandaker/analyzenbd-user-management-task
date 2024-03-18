@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Interfaces\UserInterface;
 use App\Models\User;
+use Illuminate\Support\Arr;
 
 class UserService implements UserInterface
 {
@@ -16,27 +17,37 @@ class UserService implements UserInterface
 
     public function getUsers($isTrashedUser)
     {
-        $user = User::select("id", "name", "email", "phone_number", "avatar")->latest();
+        $user = User::select("id", "name", "email", "phone_number", "avatar",'deleted_at')->latest();
         if ($isTrashedUser) {
             $user->onlyTrashed();
         }
         return $user->paginate();
     }
 
-    public function createOrUpdate($request, $user = null): User
+    public function createOrUpdate($data, $user = null)
     {
+        if (data_get($data, 'profile_pic')) {
+            if (!blank($user) && !blank($user->profile_pic) && file_exists($user->profile_pic)){
+                $this->fileService->removeFile($user->profile_pic);
+                $this->fileService->removeFile($user->avatar);
+            }
+            $profilePic = $data['profile_pic'];
+            $data['profile_pic'] = $this->fileService->uploadProfilePic($profilePic);
+            $data['avatar'] = $this->fileService->profilePicAvatar($profilePic);
+        }
+
         if (blank($user)) {
             $user = new User();
         }
 
-        $user->fill($request->except('password'));
-        if (!blank($request->get("password"))) $user->password = $request->password;
+        $user->fill(Arr::except($data, ['password']));
 
-        if ($request->hasFile('profile_pic')) {
-            $user->profile_pic = $this->fileService->uploadProfilePic($request->file('profile_pic'));
-            $user->avatar = $this->fileService->profilePicAvatar($request->file('profile_pic'));
+        if (!blank($data['password'])) {
+            $user->password = $data['password'];
         }
+
         $user->save();
+
         return $user->fresh();
     }
 
@@ -56,8 +67,6 @@ class UserService implements UserInterface
         } else {
             $user->delete();
         }
-
-
     }
 
     public function restore($id)

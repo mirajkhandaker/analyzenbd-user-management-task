@@ -43,7 +43,7 @@ class UserController extends Controller
     {
         try {
             DB::transaction(function () use ($request) {
-                $this->userService->createOrUpdate($request);
+                $this->userService->createOrUpdate($request->all());
             });
             session()->flash('success', 'User created successfully');
             return redirect(route('users.index'));
@@ -88,7 +88,7 @@ class UserController extends Controller
     {
         try {
             DB::transaction(function () use ($request, $user) {
-                $this->userService->createOrUpdate($request, $user);
+                $this->userService->createOrUpdate($request->all(), $user);
             });
             session()->flash('success', 'User updated successfully');
             return redirect(route('users.index'));
