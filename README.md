@@ -50,14 +50,14 @@ This project combines Laravel as the backend framework with jQuery & Bootstrap f
 
 8. To access the application open your browser and visit this url http://127.0.0.1:8000 or desired port show in your terminal
 
-9. The application login page will show. Logged into the application with below credentials
-   - Email
-   ```
-   admin@gmail.com
-   ```
-   - Password
-   ```
-   123456
-   ```
+   9. The application login page will show. Logged into the application with below credentials
+      - Email
+        ```
+        admin@gmail.com
+        ```
+      - Password
+        ```
+        123456
+        ```
 
 
