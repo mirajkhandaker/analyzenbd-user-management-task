@@ -65,9 +65,9 @@ This project combines Laravel 11 as the backend framework with jQuery & Bootstra
     <env name="DB_CONNECTION" value="sqlite"/>
     <env name="DB_DATABASE" value=":memory:"/>
    ```
-- Open your terminal and run below command. It will run all the test.
+- Open your terminal and run below command. It will run all the test (Only unit test will run).
     ```
-    php artisan test
+    php artisan test --testsuite=Unit
     ```
 
 
