@@ -27,7 +27,7 @@ This project combines Laravel 11 as the backend framework with jQuery & Bootstra
    ```bash
    php artisan key:generate
 
-5. Configure Database:
+5. Configure Database in your .env:
     ```
     DB_CONNECTION=mysql
     DB_HOST=db_host
