@@ -1,4 +1,4 @@
-# Senior Laravel Recruitment Assessment Project #
+# Senior Laravel 11 Recruitment Assessment Project #
 This project combines Laravel as the backend framework with jQuery & Bootstrap for the frontend. Follow the instructions to set up and run the project.
 
 ## Prerequisites ##
