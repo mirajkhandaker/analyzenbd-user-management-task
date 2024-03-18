@@ -3,6 +3,10 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+Route::get("phpinfo",function (){
+    echo phpinfo();
+});
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', function () {
         return redirect()->route('users.index');

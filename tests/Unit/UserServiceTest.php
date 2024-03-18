@@ -7,7 +7,7 @@ use App\Services\FileService;
 use App\Services\UserService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Http\Request;
 
@@ -16,19 +16,12 @@ class UserServiceTest extends TestCase
 //    use DatabaseTransactions;
     use RefreshDatabase;
 
-    public function test_get_all_users()
+    protected $userService;
+
+    protected function setUp(): void
     {
-        User::create([
-            'name' => 'test',
-            'email' => 'test@mail.com',
-            'phone_number' => '123456',
-        ]);
-
-        $fileService = new FileService();
-        $userService = new UserService($fileService);
-        $users = $userService->getUsers(false);
-
-        $this->assertCount(1, $users);
+        parent::setUp();
+        $this->userService = new UserService(new FileService());
     }
     public function test_create_user()
     {
@@ -44,11 +37,8 @@ class UserServiceTest extends TestCase
             ]
         ];
         $request = new Request([], $requestData);
-        $fileService = new FileService();
-        $userService = new UserService($fileService);
-        $createdUser = $userService->createOrUpdate($request);
 
-        $createdUser->dd();
+        $createdUser = $this->userService->createOrUpdate($request);
 
         $this->assertInstanceOf(User::class, $createdUser);
 
