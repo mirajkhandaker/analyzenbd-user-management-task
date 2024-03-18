@@ -10,7 +10,7 @@ This project combines Laravel 11 as the backend framework with jQuery & Bootstra
 1. Clone the repository:
 
    ```bash
-   https://github.com/mirajkhandaker/analyzenbd-user-management-task.git
+   git clone https://github.com/mirajkhandaker/analyzenbd-user-management-task.git
    
 2. Install dependencies:
 
